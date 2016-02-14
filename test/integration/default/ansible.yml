@@ -1,0 +1,8 @@
+---
+
+playbook: default.yml
+inventory: kitchen-hosts
+kitchen_path: '/tmp/kitchen'
+#pattern: 'ansiblespec'
+user: vagrant
+

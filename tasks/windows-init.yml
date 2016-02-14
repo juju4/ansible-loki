@@ -1,0 +1,7 @@
+---
+
+- name: ensure bin_path_win exists
+  win_file: "path={{ bin_path_win }} state=directory"
+- name: ensure dst_path_win exists
+  win_file: "path={{ dst_path_win }} state=directory"
+

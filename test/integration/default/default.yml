@@ -1,0 +1,15 @@
+---
+
+#- hosts: test-kitchen
+#- hosts: ansible
+- hosts: all
+  vars:
+    - prefix: fqdn
+    - dst_mount: "/tmp/cases"
+    - dst_path: "{{ dst_mount }}/{{ prefix }}-incidentreport"
+    - loki_scan_path: "/tmp"
+    - loki_scan_path_win: "c:\\windows"
+    - do_fetch: false
+  roles:
+    - loki
+

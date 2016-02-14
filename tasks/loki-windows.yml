@@ -1,0 +1,41 @@
+---
+
+- include: windows-init.yml
+
+- win_stat: path={{ bin_path_win }}\loki-master\loki.exe
+  register: loki
+- name: loki download
+#  win_get_url: url=https://github.com/Neo23x0/Loki/blob/master/loki.exe?raw=true
+#    dest={{ bin_path }}\loki.exe
+  win_get_url: url=https://github.com/Neo23x0/Loki/archive/master.zip
+    dest={{ bin_path_win }}\loki-master.zip
+  when: not loki.stat.exists and (do_download is defined and do_download)
+## BUG/FIXME! Normally, properties creates/recurse/rm are not necessary but v2rc1 asked them.
+- name: loki unzip
+  win_unzip:
+      src: "{{ bin_path_win }}\\loki-master.zip"
+      dest: "{{ bin_path_win }}"
+      creates: false
+      recurse: false
+      rm: false
+  when: not loki.stat.exists and (do_download is defined and do_download)
+
+- win_stat: path="{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
+  register: lokiout
+
+## FIXME! still need ioc directory from https://github.com/Neo23x0/Loki
+## https://github.com/Neo23x0/Loki/archive/master.zip
+
+- set_fact:
+    loki_output: {{ dst_path_win }}\\{{ prefix }}-Loki.txt
+
+## Note: prebuilt loki is 32bits. doesn't seem to stop after execution
+- name: Do Loki check on C
+  raw: "{{ bin_path_win }}\\loki-master\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
+  when: not lokiout.stat.exists
+## ERROR! async mode is not supported with the raw module
+#  async: 3600
+#  poll: 60
+  register: lokiscan
+  ignore_errors: true
+

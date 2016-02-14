@@ -1,0 +1,73 @@
+---
+## https://github.com/Neo23x0/Loki
+## On mac, need python-yara & python-colorama
+
+- name: apt | virtualenv for loki
+  apt: name={{item}} state=present
+  with_items:
+    - python-pip
+    - python-virtualenv
+    - python-dev
+  when: do_install is defined and do_install and (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
+
+- name: yum | virtualenv for loki
+  yum: name={{item}} state=present
+  with_items:
+    - python-pip
+    - python-virtualenv
+    - python-devel
+    - gcc
+  when: do_install is defined and do_install and (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+- name: ensuring libpcre usable on centos
+  file: src=/usr/lib64/libpcre.so.1 dest=/usr/lib64/libpcre.so.3 state=link
+  when: do_install is defined and do_install and (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+
+- stat: path={{ bin_path }}/Loki
+  register: gitloki
+- name: Loki git clone
+  git:
+    repo=https://github.com/Neo23x0/Loki.git
+    dest={{ bin_path }}/Loki
+  when: not gitloki.stat.exists and (do_download is defined and do_download)
+
+- file: path="{{ bin_path }}/Loki/loki.py" mode=0700
+
+#- stat: path="{{ bin_path }}/Loki/env/lib/toto"
+#  register: env
+- name: installing pip modules in virtualenv
+  pip: 
+    name="{{ item }}"
+    virtualenv="{{ bin_path }}/Loki/env"
+  with_items:
+    - psutil
+    - pylzma
+    - netaddr
+    - yara
+    - colorama
+  when: (do_build is defined and do_build)
+#  when: not env.stat.exists and (do_build is defined and do_build)
+
+- stat: path="{{ dst_path }}/{{ prefix }}-Loki"
+  register: res
+
+## eventually ask a confirmation before starting long task
+#- pause: prompt="Please confirm before we start loki scan (long task)"
+
+- name: check target dir exists
+  file: dest={{ dst_path }} state=directory mode=0700
+
+- set_fact:
+    loki_output: "{{ dst_path }}/{{ prefix }}-Loki.log"
+
+## Note: as it takes a while to run, we give maximum 1h=3600s to run and we check state only every 60sec
+## --onlyrelevant: will generate no logs if nothing found
+- name: Loki scan
+#  shell: "{{ bin_path }}/Loki/env/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_path_scan }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
+  shell: "{{ bin_path }}/Loki/env/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_path_scan }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
+  when: not res.stat.exists
+  async: 3600
+  poll: 60
+  register: lokiscan
+  ignore_errors: true
+
+

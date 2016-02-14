@@ -1,0 +1,4 @@
+## kitchen hosts config for continuous testing
+[windows]
+172.28.128.7 ansible_user=vagrant ansible_password=vagrant
+

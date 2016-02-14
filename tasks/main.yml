@@ -1,0 +1,13 @@
+---
+
+# FIXME! as redhat epel has still ansible 1.9. need to disable those 2 lines when testing this platform
+- include: loki-windows.yml
+  when: ansible_os_family == 'Windows'
+
+- include: loki.yml
+  when: ansible_os_family != 'Windows'
+
+- name: Recover files on orchestrator
+  fetch: "src={{ loki_output }} dest=tmp/"
+  when: do_fetch is defined and do_fetch
+
