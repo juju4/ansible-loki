@@ -4,8 +4,9 @@
 #prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.iso8601 }}"
 #prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.epoch }}"
 #prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}_{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}"
-prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}"
-#prefix: "{{ ansible_fqdn }}"
+## Note: date on windows contains non-accepted filename character [\]
+#prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}"
+prefix: "{{ ansible_fqdn }}"
 
 dst_mount: "/tmp/cases"
 ## destination
@@ -31,5 +32,6 @@ loki_scan_path_win: "c:\\"
 
 loki: true
 #loki_args: "--dontwait --intense --onlyrelevant --noindicator"
-loki_args: "--dontwait --intense --noindicator"
+#loki_args: "--dontwait --intense --noindicator"
+loki_args: "--dontwait --noindicator"
 
