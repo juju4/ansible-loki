@@ -25,6 +25,8 @@ do_fetch: true
 
 bin_path: "/tmp/ir-bin"
 
+loki_scan_path: '/'
+
 bin_path_win: "c:\\temp\\ir-bin"
 dst_path_win: "c:\\temp"
 loki_scan_path_win: "c:\\"
