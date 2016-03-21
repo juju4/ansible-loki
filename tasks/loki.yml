@@ -63,7 +63,7 @@
 ## --onlyrelevant: will generate no logs if nothing found
 - name: Loki scan
 #  shell: "{{ bin_path }}/Loki/env/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_path_scan }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
-  shell: "{{ bin_path }}/Loki/env/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_path_scan }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
+  shell: "{{ bin_path }}/Loki/env/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_scan_path }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
   when: not res.stat.exists
   async: 3600
   poll: 60
