@@ -24,7 +24,7 @@ do_install: true
 do_fetch: true
 
 bin_path: "/tmp/ir-bin"
-
+dst_path: "/tmp"
 loki_scan_path: '/'
 
 bin_path_win: "c:\\temp\\ir-bin"

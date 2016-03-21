@@ -5,6 +5,7 @@
 - name: apt | virtualenv for loki
   apt: name={{item}} state=present
   with_items:
+    - git
     - python-pip
     - python-virtualenv
     - python-dev
@@ -13,6 +14,7 @@
 - name: yum | virtualenv for loki
   yum: name={{item}} state=present
   with_items:
+    - git-core
     - python-pip
     - python-virtualenv
     - python-devel
@@ -47,9 +49,6 @@
   when: (do_build is defined and do_build)
 #  when: not env.stat.exists and (do_build is defined and do_build)
 
-- stat: path="{{ dst_path }}/{{ prefix }}-Loki"
-  register: res
-
 ## eventually ask a confirmation before starting long task
 #- pause: prompt="Please confirm before we start loki scan (long task)"
 
@@ -59,11 +58,15 @@
 - set_fact:
     loki_output: "{{ dst_path }}/{{ prefix }}-Loki.log"
 
+- stat: path="{{ loki_output}}"
+  register: res
+
 ## Note: as it takes a while to run, we give maximum 1h=3600s to run and we check state only every 60sec
 ## --onlyrelevant: will generate no logs if nothing found
 - name: Loki scan
 #  shell: "{{ bin_path }}/Loki/env/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_path_scan }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
   shell: "{{ bin_path }}/Loki/env/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_scan_path }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
+  become: yes
   when: not res.stat.exists
   async: 3600
   poll: 60
