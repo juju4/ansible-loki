@@ -23,10 +23,11 @@ env:
     version: 12.04
     init: /sbin/init
     run_opts: ""
-  - distribution: alpine
-    version: 3.4
-    init: /sbin/init
-    run_opts: ""
+## FIXME! missing package libyara-dev
+#  - distribution: alpine
+#    version: 3.4
+#    init: /sbin/init
+#    run_opts: ""
 
 services:
   - docker

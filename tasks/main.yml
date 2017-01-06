@@ -6,6 +6,9 @@
 - name: Include version-specific variables for RedHat
   include_vars: "RedHat-{{ ansible_distribution_version.split('.')[0] }}.yml"
   when: ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+- name: Include version-specific variables for Alpine
+  include_vars: "Alpine.yml"
+  when: ansible_os_family == "Alpine"
 
 # FIXME! as redhat epel has still ansible 1.9. need to disable those 2 lines when testing this platform
 - include: loki-windows.yml
