@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/juju4/ansible-loki.svg?branch=master)](https://travis-ci.org/juju4/ansible-loki)
 # Loki ansible role
 
 A simple ansible role to execute loki, a Simple IOC and Incident Response Scanner.
@@ -72,6 +73,7 @@ you can test this role with test kitchen.
 In the role folder, run
 (Not working)
 ```
+$ gem install winrm-fs
 $ kitchen verify
 ```
 (manual working)

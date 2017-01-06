@@ -33,7 +33,11 @@ loki_scan_path_win: "c:\\"
 #loki_scan_path_win: "c:\\windows"
 
 loki: true
+loki_capture: true
+## virtualenv path
+loki_env: "{{ bin_path }}/Loki/env"
 #loki_args: "--dontwait --intense --onlyrelevant --noindicator"
 #loki_args: "--dontwait --intense --noindicator"
 loki_args: "--dontwait --noindicator"
+#loki_args: "--dontwait --noindicator --debug"
 

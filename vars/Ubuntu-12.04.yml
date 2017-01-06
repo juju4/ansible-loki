@@ -1,0 +1,19 @@
+---
+
+loki_pkg:
+    - git
+    - python-pip
+    - python-virtualenv
+    - python-dev
+## No package matching 'libyara-dev = not necessary
+#    - libyara-dev
+
+loki_pip_pkg:
+    - psutil
+    - pylzma
+    - netaddr
+    - yara
+    - colorama
+    - gitpython
+    - pymisp
+

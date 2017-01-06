@@ -1,0 +1,78 @@
+---
+driver:
+  name: vagrant
+  provider: <%= ENV['KITCHEN_PROVIDER'] || 'virtualbox' %>
+
+provisioner:
+  name: ansible_playbook
+  roles_path: ../../roles
+  hosts: test-kitchen
+  ansible_verbose: true
+  ansible_verbose: false
+  ansible_verbosity: 3
+  ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
+  ansible_yum_repo: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+  enable_yum_epel: true
+  ansible_host_key_checking: false
+#  name: chef_solo
+#  kerberos_conf_file:   <your krb5.conf file path> 
+
+platforms:
+  - name: ubuntu-16.04
+  - name: ubuntu-14.04
+  - name: ubuntu-12.04
+## FIXME! bash: ansible-playbook: command not found
+#  - name: debian-6.0.10
+#  - name: debian-7.0.
+  - name: centos-7.1
+#  - name: centos-6.6
+## FIXME! The box failed to unpackage properly. Please verify that the box file you're trying to add is not corrupted and try again. The output from attempting to unpackage (if any):
+#  - name: centos-6.7
+#  - name: centos-5.11
+# separate orchestrator is needed for windows
+# not using centos-7.0 as epel is ansible1.9
+  - name: centos-7.0
+    driver_plugin: vagrant
+    driver_config:
+      box: centos-7.0
+#  - name: ubuntu-14.04
+#    driver_plugin: vagrant
+#### http://kitchen.ci/blog/test-kitchen-windows-test-flight-with-vagrant/
+#### FIXME! https://github.com/neillturner/kitchen-ansible/issues/131
+#  - name: windows-2012r2
+#    transport:
+#      name: winrm
+#    driver:
+##      gui: false
+#      gui: true
+
+
+suites:
+  - name: ansible
+    run_list:
+    attributes:
+    driver_config:
+      network:
+#      - [ 'private_network', { type: 'dhcp' }]
+      - [ 'private_network', { ip: '172.28.128.6' } ]
+#      - [ 'public_network', { bridge: 'eth0' }]
+    includes:
+#      - centos-7.0
+      - ubuntu-14.04
+#    provisioner:
+#      name: ansible_playbook
+#      playbook: test/integration/ansible/ansiblespec/config.yml
+#      ansible_connection: local
+    provisioner:
+      name: ansible_playbook
+      playbook: test/integration/default/default.yml
+      ansible_connection:  winrm
+      require_windows_support: true  
+
+  - name: windows
+    driver_config:
+      network:
+#      - [ 'private_network', { type: 'dhcp' }]
+      - [ 'private_network', { ip: '172.28.128.7' } ]
+    includes:
+      - windows-2012r2
