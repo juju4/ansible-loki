@@ -9,7 +9,9 @@ describe command('pip freeze') do
 end
 
 describe command('/tmp/ir-bin/Loki/env/bin/pip freeze') do
+  its(:stdout) { should match /psutil/ }
   its(:stdout) { should match /yara/ }
-  its(:stdout) { should match /argparse/ }
+## argparse can be through pip or package libpython2.7-stdlib/xenial
+#  its(:stdout) { should match /argparse/ }
 end
 
