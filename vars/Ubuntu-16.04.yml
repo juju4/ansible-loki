@@ -8,6 +8,7 @@ loki_pkg:
     - libyara-dev
 
 loki_pip_pkg:
+    - argparse
     - psutil
     - pylzma
     - netaddr
