@@ -21,10 +21,12 @@
 
 - file: path="{{ bin_path }}/Loki/loki.py" mode=0700
 
+## v2.2.0 bug/centos: https://github.com/ansible/ansible-modules-core/issues/5470, fixed in 2.2.1
 - name: installing pip modules in virtualenv
   pip: 
     name="{{ item }}"
     virtualenv="{{ loki_env }}"
+#    executable="{{ loki_env }}/bin/pip"
   with_items: "{{ loki_pip_pkg }}"
   when: (do_build is defined and do_build)
 
