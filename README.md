@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/juju4/ansible-loki.svg?branch=master)](https://travis-ci.org/juju4/ansible-loki)
+[![Build Status - Master](https://travis-ci.org/juju4/ansible-loki.svg?branch=master)](https://travis-ci.org/juju4/ansible-loki)
+[![Build Status - Devel](https://travis-ci.org/juju4/ansible-loki.svg?branch=devel)](https://travis-ci.org/juju4/ansible-loki/branches)
 # Loki ansible role
 
 A simple ansible role to execute loki, a Simple IOC and Incident Response Scanner.
@@ -11,6 +12,7 @@ https://www.bsk-consulting.de/loki-free-ioc-scanner/
 It was tested on the following versions:
  * 1.9
  * 2.0 (required for Windows)
+ * 2.2
 
 ### Operating systems
 
@@ -25,7 +27,7 @@ For example
 ```
 - host: myhost
   roles:
-    - loki
+    - juju4.loki
 ```
 
 you probably want to review variables
