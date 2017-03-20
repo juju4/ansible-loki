@@ -9,6 +9,9 @@
 - name: Include version-specific variables for Alpine
   include_vars: "Alpine.yml"
   when: ansible_os_family == "Alpine"
+- name: Include version-specific variables for Darwin
+  include_vars: "Darwin.yml"
+  when: ansible_os_family == "Darwin"
 
 # FIXME! as redhat epel has still ansible 1.9. need to disable those 2 lines when testing this platform
 - include: loki-windows.yml

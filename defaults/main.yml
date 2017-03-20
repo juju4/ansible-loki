@@ -24,7 +24,7 @@ do_install: true
 do_fetch: true
 
 bin_path: "/tmp/ir-bin"
-dst_path: "/tmp"
+dst_path: "/tmp/loki-out"
 loki_scan_path: '/'
 
 bin_path_win: "c:\\temp\\ir-bin"
@@ -41,3 +41,6 @@ loki_env: "{{ bin_path }}/Loki/env"
 loki_args: "--dontwait --noindicator"
 #loki_args: "--dontwait --noindicator --debug"
 
+#loki_virtualenv_command: ''
+## on darwin, homebrew or macports path?
+loki_virtualenv_command: '/opt/local/bin/virtualenv'

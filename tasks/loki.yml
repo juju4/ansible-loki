@@ -5,7 +5,7 @@
 - name: loki dependencies
   package: name={{item}} state=present
   with_items: "{{ loki_pkg }}"
-  when: do_install is defined and do_install
+  when: do_install is defined and do_install and ansible_os_system == 'Linux'
 
 - name: redhat | ensuring libpcre usable
   file: "src={{ loki_redhat_pcre }} dest=/usr/lib64/libpcre.so.3 state=link"
@@ -19,16 +19,25 @@
     dest={{ bin_path }}/Loki
   when: not gitloki.stat.exists and (do_download is defined and do_download)
 
-- file: path="{{ bin_path }}/Loki/loki.py" mode=0700
+- name: ensure right permissions for loki.py
+  file: path="{{ bin_path }}/Loki/loki.py" mode=0700
 
 ## v2.2.0 bug/centos: https://github.com/ansible/ansible-modules-core/issues/5470, fixed in 2.2.1
 - name: installing pip modules in virtualenv
-  pip: 
+  pip:
     name="{{ item }}"
     virtualenv="{{ loki_env }}"
 #    executable="{{ loki_env }}/bin/pip"
   with_items: "{{ loki_pip_pkg }}"
-  when: (do_build is defined and do_build)
+  when: (do_build is defined and do_build) and (loki_virtualenv_command is not defined or loki_virtualenv_command == '')
+## Note: on harden-darwin system, might be blocked by Google Santa and trigger RansomWhere validation
+- name: installing pip modules in virtualenv - specific virtualenv executable
+  pip:
+    name="{{ item }}"
+    virtualenv="{{ loki_env }}"
+    virtualenv_command="{{ loki_virtualenv_command }}"
+  with_items: "{{ loki_pip_pkg }}"
+  when: (do_build is defined and do_build) and (loki_virtualenv_command is defined and loki_virtualenv_command != '')
 
 - name: debian | ensuring libyara.so available
   file: "src={{ loki_env }}/lib/python2.7/site-packages/{{ loki_env }}/lib/libyara.so dest={{ loki_env }}/lib/libyara.so state=link"
