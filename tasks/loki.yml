@@ -5,7 +5,7 @@
 - name: loki dependencies
   package: name={{item}} state=present
   with_items: "{{ loki_pkg }}"
-  when: do_install is defined and do_install and ansible_os_system == 'Linux'
+  when: do_install is defined and do_install and ansible_system == 'Linux'
 
 - name: redhat | ensuring libpcre usable
   file: "src={{ loki_redhat_pcre }} dest=/usr/lib64/libpcre.so.3 state=link"
