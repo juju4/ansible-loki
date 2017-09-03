@@ -2,5 +2,5 @@
 
 - hosts: all
   roles:
-    - loki
+    - juju4.loki
 
