@@ -17,4 +17,5 @@ loki_pip_pkg:
     - colorama
     - gitpython
     - pymisp
+    - pycrypto
 
