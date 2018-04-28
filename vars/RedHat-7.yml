@@ -15,7 +15,7 @@ loki_pip_pkg:
     - yara
     - colorama
     - gitpython
-    - pymisp
+#    - pymisp
     - argparse
     - pycrypto
 
