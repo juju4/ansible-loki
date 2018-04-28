@@ -1,0 +1,19 @@
+---
+
+loki_pkg:
+    - git
+    - python-pip
+    - python-virtualenv
+    - python-dev
+    - libyara-dev
+
+loki_pip_pkg:
+    - argparse
+    - psutil
+    - pylzma
+    - netaddr
+    - yara
+    - colorama
+    - gitpython
+    - pymisp
+    - pycrypto
