@@ -12,7 +12,7 @@ loki_pip_pkg:
     - psutil
     - pylzma
     - netaddr
-    - yara
+    - yara-python
     - colorama
     - gitpython
     - pymisp
