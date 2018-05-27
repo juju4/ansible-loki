@@ -39,9 +39,12 @@
   with_items: "{{ loki_pip_pkg }}"
   when: (do_build is defined and do_build) and (loki_virtualenv_command is defined and loki_virtualenv_command != '')
 
-- name: debian | ensuring libyara.so available
-  file: "src={{ loki_env }}/lib/python2.7/site-packages/{{ loki_env }}/lib/libyara.so dest={{ loki_env }}/lib/libyara.so state=link"
-  when: ansible_distribution_release == 'xenial'
+- name: ensuring libyara.so available in virtualenv
+  file:
+    src: "{{ loki_env }}/lib/python2.7/site-packages/{{ loki_env }}/lib/libyara.so"
+    dest: "{{ loki_env }}/lib/libyara.so"
+    state: link
+  when: ansible_distribution_release == 'xenial' or ansible_os_family == 'RedHat'
 
 ## eventually ask a confirmation before starting long task
 #- pause: prompt="Please confirm before we start loki scan (long task)"
@@ -56,10 +59,23 @@
   stat: path="{{ loki_output}}"
   register: res
 
+- name: Loki upgrade
+  shell: "{{ loki_env }}/bin/python {{ bin_path }}/Loki/loki-upgrader.py"
+  args:
+    chdir: "{{ bin_path }}/Loki"
+  become: yes
+  when: not res.stat.exists and loki_capture is defined and loki_capture
+  register: lokiup
+
+- debug: var=lokiup.stdout_lines
+- debug: var=lokiup.stderr
+
 ## Note: as it takes a while to run, we give maximum 1h=3600s to run and we check state only every 60sec
 ## --onlyrelevant: will generate no logs if nothing found
 - name: Loki scan
-  shell: "{{ loki_env }}/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_scan_path }} -l {{ loki_output }} chdir={{ bin_path }}/Loki"
+  shell: "{{ loki_env }}/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_scan_path }} -l {{ loki_output }}"
+  args:
+    chdir: "{{ bin_path }}/Loki"
   become: yes
   when: not res.stat.exists and loki_capture is defined and loki_capture
   async: 3600
@@ -71,4 +87,5 @@
   environment:
     PYTHONIOENCODING: 'utf-8'
 
-
+- debug: var=lokiscan.stdout_lines
+- debug: var=lokiscan.stderr
