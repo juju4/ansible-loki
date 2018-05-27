@@ -8,7 +8,7 @@ set :backend, :exec
 #describe file(File.exists?("/tmp/cases/*-incidentreport/*-Loki.log")) do
 describe file("/tmp/cases/fqdn-incidentreport/fqdn-Loki.log") do
   it { should be_file }
-  its(:content) { should match /INFO.* Scanning / }
+  its(:content) { should match /INFO.* Scanning /i }
   its(:content) { should match /SYSTEM SEEMS TO BE CLEAN./ }
   its(:content) { should match /Finished LOKI Scan SYSTEM:/ }
 #  its(:content) { should_not match /ERROR/ }
