@@ -5,15 +5,14 @@
 - win_stat: path={{ bin_path_win }}\loki-master\loki.exe
   register: loki
 - name: windows | loki download
-#  win_get_url: url=https://github.com/Neo23x0/Loki/blob/master/loki.exe?raw=true
-#    dest={{ bin_path }}\loki.exe
-  win_get_url: url=https://github.com/Neo23x0/Loki/archive/master.zip
-    dest={{ bin_path_win }}\loki-master.zip
+  win_get_url:
+    url: "{{ loki_win_release_rurl }}"
+    dest: "{{ bin_path_win }}\{{ loki_win_release_rurl | basename }}"
   when: not loki.stat.exists and (do_download is defined and do_download)
 ## BUG/FIXME! Normally, properties creates/recurse/rm are not necessary but v2rc1 asked them.
 - name: windows | loki unzip
   win_unzip:
-      src: "{{ bin_path_win }}\\loki-master.zip"
+      src: "{{ bin_path_win }}\\{{ loki_win_release_rurl | basename }}"
       dest: "{{ bin_path_win }}"
       creates: false
       recurse: false
@@ -31,7 +30,7 @@
 
 ## Note: prebuilt loki is 32bits. doesn't seem to stop after execution
 - name: windows | Do Loki check on C
-  win_shell: "{{ bin_path_win }}\\loki-master\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
+  win_shell: "{{ bin_path_win }}\\loki\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
 #  raw: "{{ bin_path_win }}\\loki-master\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
 #  raw: "loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }} chdir={{ bin_path_win }}\\loki-master"
   when: not lokiout.stat.exists
