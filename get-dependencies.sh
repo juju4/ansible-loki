@@ -8,6 +8,7 @@ rolesdir=$1
 else
 rolesdir=$(dirname $0)/..
 fi
+[ $APPVEYOR ] && rolesdir=/etc/ansible/roles
 
 #[ ! -d $rolesdir/juju4.redhat-epel ] && git clone https://github.com/juju4/ansible-redhat-epel $rolesdir/juju4.redhat-epel
 ## galaxy naming: kitchen fails to transfer symlink folder
