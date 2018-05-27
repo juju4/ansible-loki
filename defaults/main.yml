@@ -6,7 +6,7 @@
 #prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}_{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}"
 ## Note: date on windows contains non-accepted filename character [\]
 #prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}"
-prefix: "{{ ansible_fqdn }}"
+prefix: "{{ ansible_fqdn | default(ansible_hostname) }}"
 
 dst_mount: "/tmp/cases"
 ## destination
