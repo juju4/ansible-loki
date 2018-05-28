@@ -7,7 +7,7 @@
 - name: windows | loki download
   win_get_url:
     url: "{{ loki_win_release_rurl }}"
-    dest: "{{ bin_path_win }}\{{ loki_win_release_rurl | basename }}"
+    dest: "{{ bin_path_win }}\\{{ loki_win_release_rurl | basename }}"
   when: not loki.stat.exists and (do_download is defined and do_download)
 ## BUG/FIXME! Normally, properties creates/recurse/rm are not necessary but v2rc1 asked them.
 - name: windows | loki unzip
