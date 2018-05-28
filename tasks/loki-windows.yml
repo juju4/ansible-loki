@@ -29,7 +29,7 @@
     loki_output: "{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
 
 ## Note: prebuilt loki is 32bits. doesn't seem to stop after execution
-- name: windows | Do Loki check on C
+- name: windows | Do Loki check on {{ loki_scan_path_win }}
   win_shell: "{{ bin_path_win }}\\loki\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
 #  raw: "{{ bin_path_win }}\\loki-master\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
 #  raw: "loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }} chdir={{ bin_path_win }}\\loki-master"
