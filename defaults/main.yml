@@ -29,7 +29,8 @@ loki_scan_path: '/'
 
 bin_path_win: "c:\\temp\\ir-bin"
 dst_path_win: "c:\\temp"
-loki_scan_path_win: "c:\\"
+loki_scan_path_win: "c:\\temp"
+#loki_scan_path_win: "c:\\"
 #loki_scan_path_win: "c:\\windows"
 ## missing pre-compiled executable
 #loki_win_release_rurl: https://github.com/Neo23x0/Loki/archive/master.zip
