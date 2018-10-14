@@ -115,6 +115,7 @@ on_failure:
 on_finish:
 - ps: Get-ChildItem -Recurse -Path "c:\temp\ir-bin\loki"
 - ps: dir c:\temp\ir-bin\*-Loki.txt | ForEach {Get-Content $_}
+- ps: dir c:\temp\*-Loki.txt | ForEach {Get-Content $_}
 
 notifications:
 - provider: Email
