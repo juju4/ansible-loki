@@ -6,7 +6,7 @@
     - dst_mount: "/tmp/cases"
     - dst_path: "{{ dst_mount }}/{{ prefix }}-incidentreport"
     - loki_scan_path: "/tmp"
-    - loki_scan_path_win: "c:\\windows"
+    - loki_scan_path_win: "c:\\windows\\system32"
     - do_fetch: false
 #    - loki_capture: false
   roles:
