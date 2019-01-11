@@ -2,7 +2,8 @@
 
 - include: windows-init.yml
 
-- win_stat: path={{ bin_path_win }}\loki-master\loki.exe
+- name: Check if loki.exe exists
+  win_stat: path={{ bin_path_win }}\loki-master\loki.exe
   register: loki
 - name: windows | loki download
   win_get_url:
@@ -25,18 +26,16 @@
 ## FIXME! still need ioc directory from https://github.com/Neo23x0/Loki
 ## https://github.com/Neo23x0/Loki/archive/master.zip
 
-- set_fact:
+- name: Set fact loki_output
+  set_fact:
     loki_output: "{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
 
 ## Note: prebuilt loki is 32bits. doesn't seem to stop after execution
 - name: windows | Do Loki check on {{ loki_scan_path_win }}
   win_shell: "{{ bin_path_win }}\\loki\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
-#  raw: "{{ bin_path_win }}\\loki-master\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
-#  raw: "loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }} chdir={{ bin_path_win }}\\loki-master"
   when: not lokiout.stat.exists
 ## ERROR! async mode is not supported with the raw module
 #  async: 3600
 #  poll: 60
   register: lokiscan
   ignore_errors: true
-

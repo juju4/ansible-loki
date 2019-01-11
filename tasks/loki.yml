@@ -3,21 +3,39 @@
 ## On mac, need python-yara & python-colorama
 
 - name: loki dependencies
-  package: name={{item}} state=present
-  with_items: "{{ loki_pkg }}"
+  package: name={{ loki_pkg }} state=present
   when: do_install is defined and do_install and ansible_system == 'Linux'
+  register: pkg_result
+  until: pkg_result is success
 
 - name: redhat | ensuring libpcre usable
   file: "src={{ loki_redhat_pcre }} dest=/usr/lib64/libpcre.so.3 state=link"
-  when: do_install is defined and do_install and (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and loki_redhat_pcre is defined and loki_redhat_pcre != ''
+  when: >
+    do_install is defined and do_install and
+    ansible_os_family == "RedHat" and
+    loki_redhat_pcre is defined and loki_redhat_pcre != ''
 
-- stat: path={{ bin_path }}/Loki
+- name: Check if Loki dir exists
+  stat: path={{ bin_path }}/Loki
   register: gitloki
 - name: Loki git clone
   git:
-    repo=https://github.com/Neo23x0/Loki.git
-    dest={{ bin_path }}/Loki
+    repo: https://github.com/Neo23x0/Loki.git
+    dest: "{{ bin_path }}/Loki"
+    version: "{{ loki_version | default('v0.29.1') }}"
   when: not gitloki.stat.exists and (do_download is defined and do_download)
+
+- name: signature-base git clone
+  git:
+    repo: https://github.com/Neo23x0/signature-base.git
+    dest: "{{ bin_path }}/signature-base"
+    version: "{{ loki_signaturebase_version | default('8c7e07780e9ae8d9fe17a426c7f772aba9e67daa') }}"
+
+- name: add signature-base symlink
+  file:
+    src: "{{ bin_path }}/signature-base"
+    dest: "{{ bin_path }}/Loki/signature-base"
+    state: link
 
 - name: ensure right permissions for loki.py
   file: path="{{ bin_path }}/Loki/loki.py" mode=0700
@@ -25,11 +43,14 @@
 ## v2.2.0 bug/centos: https://github.com/ansible/ansible-modules-core/issues/5470, fixed in 2.2.1
 - name: installing pip modules in virtualenv
   pip:
-    name="{{ item }}"
-    virtualenv="{{ loki_env }}"
-#    executable="{{ loki_env }}/bin/pip"
-  with_items: "{{ loki_pip_pkg }}"
-  when: (do_build is defined and do_build) and (loki_virtualenv_command is not defined or loki_virtualenv_command == '')
+    name: "{{ loki_pip_pkg }}"
+    virtualenv: "{{ loki_env }}"
+  when: >
+    (do_build is defined and do_build) and
+    (loki_virtualenv_command is not defined or not loki_virtualenv_command)
+  register: pkg_result
+  until: pkg_result is success
+
 ## Note: on harden-darwin system, might be blocked by Google Santa and trigger RansomWhere validation
 - name: installing pip modules in virtualenv - specific virtualenv executable
   pip:
@@ -37,7 +58,11 @@
     virtualenv="{{ loki_env }}"
     virtualenv_command="{{ loki_virtualenv_command }}"
   with_items: "{{ loki_pip_pkg }}"
-  when: (do_build is defined and do_build) and (loki_virtualenv_command is defined and loki_virtualenv_command != '')
+  when: >
+    (do_build is defined and do_build) and
+    (loki_virtualenv_command is defined and loki_virtualenv_command)
+  register: pkg_result
+  until: pkg_result is success
 
 - name: ensuring libyara.so available in virtualenv
   file:
@@ -52,7 +77,8 @@
 - name: check target dir exists
   file: dest={{ dst_path }} state=directory mode=0700
 
-- set_fact:
+- name: Set fact loki_output
+  set_fact:
     loki_output: "{{ dst_path }}/{{ prefix }}-Loki.log"
 
 - name: check if log output exists
@@ -73,7 +99,9 @@
 ## Note: as it takes a while to run, we give maximum 1h=3600s to run and we check state only every 60sec
 ## --onlyrelevant: will generate no logs if nothing found
 - name: Loki scan
-  shell: "{{ loki_env }}/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }} -p {{ loki_scan_path }} -l {{ loki_output }}"
+  shell: >
+    {{ loki_env }}/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }}
+        -p {{ loki_scan_path }} -l {{ loki_output }}
   args:
     chdir: "{{ bin_path }}/Loki"
   become: yes
