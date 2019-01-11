@@ -54,10 +54,9 @@
 ## Note: on harden-darwin system, might be blocked by Google Santa and trigger RansomWhere validation
 - name: installing pip modules in virtualenv - specific virtualenv executable
   pip:
-    name="{{ item }}"
+    name="{{ loki_pip_pkg }}"
     virtualenv="{{ loki_env }}"
     virtualenv_command="{{ loki_virtualenv_command }}"
-  with_items: "{{ loki_pip_pkg }}"
   when: >
     (do_build is defined and do_build) and
     (loki_virtualenv_command is defined and loki_virtualenv_command)
