@@ -64,7 +64,7 @@
   args:
     chdir: "{{ bin_path }}/Loki"
   become: yes
-  when: not res.stat.exists and loki_capture is defined and loki_capture
+  when: not res.stat.exists and loki_capture is defined and loki_capture and loki_upgrade
   register: lokiup
 
 - debug: var=lokiup.stdout_lines

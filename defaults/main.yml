@@ -44,6 +44,7 @@ loki_env: "{{ bin_path }}/Loki/env"
 #loki_args: "--dontwait --intense --noindicator"
 loki_args: "--dontwait --noindicator"
 #loki_args: "--dontwait --noindicator --debug"
+loki_upgrade: false
 
 loki_virtualenv_command: ''
 ## on darwin, homebrew or macports path?
