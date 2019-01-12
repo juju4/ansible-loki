@@ -5,7 +5,7 @@ driver:
 
 provisioner:
   name: ansible_playbook
-  roles_path: ../../roles
+  roles_path: ../
   hosts: test-kitchen
   ansible_verbose: true
   ansible_verbose: false

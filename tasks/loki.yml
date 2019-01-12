@@ -85,7 +85,7 @@
   register: res
 
 - name: Loki upgrade
-  shell: "{{ loki_env }}/bin/python {{ bin_path }}/Loki/loki-upgrader.py"
+  command: "{{ loki_env }}/bin/python {{ bin_path }}/Loki/loki-upgrader.py"
   args:
     chdir: "{{ bin_path }}/Loki"
   become: yes

@@ -11,4 +11,3 @@
 #    - loki_capture: false
   roles:
     - juju4.loki
-

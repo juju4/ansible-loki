@@ -18,4 +18,3 @@ loki_pip_pkg:
     - gitpython
     - pymisp
     - pycrypto
-

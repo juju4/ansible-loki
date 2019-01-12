@@ -20,4 +20,3 @@ loki_pip_pkg:
     - pycrypto
 
 loki_redhat_pcre: /lib64/libpcre.so.0
-

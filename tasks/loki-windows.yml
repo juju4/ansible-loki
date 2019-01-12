@@ -20,7 +20,8 @@
       rm: false
   when: not loki.stat.exists and (do_download is defined and do_download)
 
-- win_stat: path="{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
+- name: Check if loki output file exists
+  win_stat: path="{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
   register: lokiout
 
 ## FIXME! still need ioc directory from https://github.com/Neo23x0/Loki
