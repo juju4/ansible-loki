@@ -20,4 +20,3 @@
       when: ansible_distribution_major_version == "7"
     - name: Install ansible
       yum: name=ansible state=present
-

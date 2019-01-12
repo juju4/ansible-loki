@@ -81,7 +81,7 @@
     loki_output: "{{ dst_path }}/{{ prefix }}-Loki.log"
 
 - name: check if log output exists
-  stat: path="{{ loki_output}}"
+  stat: path="{{ loki_output }}"
   register: res
 
 - name: Loki upgrade
