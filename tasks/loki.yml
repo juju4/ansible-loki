@@ -98,7 +98,7 @@
 ## Note: as it takes a while to run, we give maximum 1h=3600s to run and we check state only every 60sec
 ## --onlyrelevant: will generate no logs if nothing found
 - name: Loki scan
-  shell: >
+  command: >
     {{ loki_env }}/bin/python {{ bin_path }}/Loki/loki.py {{ loki_args }}
         -p {{ loki_scan_path }} -l {{ loki_output }}
   args:
