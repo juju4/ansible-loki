@@ -1,5 +1,6 @@
 ---
 ## https://github.com/Neo23x0/Loki
+## yara 3.2+ needed
 ## On mac, need python-yara & python-colorama
 
 - name: loki dependencies
