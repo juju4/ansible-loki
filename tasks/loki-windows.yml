@@ -20,11 +20,12 @@
       rm: false
   when: not loki.stat.exists and (do_download is defined and do_download)
 
-- name: signature-base git clone
-  git:
-    repo: https://github.com/Neo23x0/signature-base.git
-    dest: "{{ bin_path_win }}/signature-base"
-    version: "{{ loki_signaturebase_version | default('b3b0e19ee77592168ddcf46bac7f5bbae7b7a390') }}"
+## FIXME! winrm send_input failed
+#- name: signature-base git clone
+#  git:
+#    repo: https://github.com/Neo23x0/signature-base.git
+#    dest: "{{ bin_path_win }}/signature-base"
+#    version: "{{ loki_signaturebase_version | default('b3b0e19ee77592168ddcf46bac7f5bbae7b7a390') }}"
 
 - name: Check if loki output file exists
   win_stat: path="{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
