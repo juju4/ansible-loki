@@ -23,14 +23,14 @@
   git:
     repo: https://github.com/Neo23x0/Loki.git
     dest: "{{ bin_path }}/Loki"
-    version: "{{ loki_version | default('v0.29.1') }}"
+    version: "{{ loki_version | default('0.30.3') }}"
   when: not gitloki.stat.exists and (do_download is defined and do_download)
 
 - name: signature-base git clone
   git:
     repo: https://github.com/Neo23x0/signature-base.git
     dest: "{{ bin_path }}/signature-base"
-    version: "{{ loki_signaturebase_version | default('8c7e07780e9ae8d9fe17a426c7f772aba9e67daa') }}"
+    version: "{{ loki_signaturebase_version | default('b3b0e19ee77592168ddcf46bac7f5bbae7b7a390') }}"
 
 - name: add signature-base symlink
   file:
