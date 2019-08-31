@@ -23,7 +23,7 @@
   git:
     repo: https://github.com/Neo23x0/Loki.git
     dest: "{{ bin_path }}/Loki"
-    version: "{{ loki_version | default('0.30.3') }}"
+    version: "{{ loki_version | default('v0.30.3') }}"
   when: not gitloki.stat.exists and (do_download is defined and do_download)
 
 - name: signature-base git clone
