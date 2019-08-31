@@ -18,5 +18,6 @@ loki_pip_pkg:
 #    - pymisp
     - argparse
     - pycrypto
+    - rfc5424-logging-handler
 
 loki_redhat_pcre: /usr/lib64/libpcre.so.1

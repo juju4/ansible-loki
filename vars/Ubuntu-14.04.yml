@@ -18,3 +18,4 @@ loki_pip_pkg:
     - gitpython
     - pymisp
     - pycrypto
+    - rfc5424-logging-handler
