@@ -2,10 +2,12 @@
 
 loki_pkg:
     - git
-    - python-pip
-    - python-virtualenv
-    - python-dev
+    - python3-pip
+    - python3-virtualenv
+    - python3-dev
     - libyara-dev
+
+loki_python_bin: python3
 
 loki_pip_pkg:
     - argparse
