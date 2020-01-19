@@ -10,11 +10,14 @@
   until: pkg_result is success
 
 - name: redhat | ensuring libpcre usable
-  file: "src={{ loki_redhat_pcre }} dest=/usr/lib64/libpcre.so.3 state=link"
+  file:
+    src: "{{ loki_redhat_pcre }}"
+    dest: "/usr/lib64/libpcre.so.3"
+    state: link
   when: >
     do_install is defined and do_install and
     ansible_os_family == "RedHat" and
-    loki_redhat_pcre is defined and loki_redhat_pcre != ''
+    loki_redhat_pcre is defined and loki_redhat_pcre|string
 
 - name: Check if Loki dir exists
   stat: path={{ bin_path }}/Loki
@@ -56,9 +59,9 @@
 ## Note: on harden-darwin system, might be blocked by Google Santa and trigger RansomWhere validation
 - name: installing pip modules in virtualenv - specific virtualenv executable
   pip:
-    name="{{ loki_pip_pkg }}"
-    virtualenv="{{ loki_env }}"
-    virtualenv_command="{{ loki_virtualenv_command }}"
+    name: "{{ loki_pip_pkg }}"
+    virtualenv: "{{ loki_env }}"
+    virtualenv_command: "{{ loki_virtualenv_command }}"
   when: >
     (do_build is defined and do_build) and
     (loki_virtualenv_command is defined and loki_virtualenv_command)
@@ -83,7 +86,8 @@
     loki_output: "{{ dst_path }}/{{ prefix }}-Loki.log"
 
 - name: check if log output exists
-  stat: path="{{ loki_output }}"
+  stat:
+    path: "{{ loki_output }}"
   register: res
 
 - name: Loki upgrade
