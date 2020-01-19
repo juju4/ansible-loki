@@ -49,7 +49,7 @@
   pip:
     name: "{{ loki_pip_pkg }}"
     virtualenv: "{{ loki_env }}"
-    virtualenv_python: "{{ loki_python_bin | defaults('python') }}"
+    virtualenv_python: "{{ loki_python_bin | default('python') }}"
   when: >
     (do_build is defined and do_build) and
     (loki_virtualenv_command is not defined or not loki_virtualenv_command)
