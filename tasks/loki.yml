@@ -41,6 +41,17 @@
 - name: ensure right permissions for loki.py
   file: path="{{ bin_path }}/Loki/loki.py" mode=0700
 
+- name: installing pip modules in virtualenv - setuptools python2
+  pip:
+    name: setuptools
+    version: 44.0.0
+    virtualenv: "{{ loki_env }}"
+  when: >
+    (do_build is defined and do_build) and
+    (loki_virtualenv_command is not defined or not loki_virtualenv_command)
+  register: pkg_result
+  until: pkg_result is success
+
 ## v2.2.0 bug/centos: https://github.com/ansible/ansible-modules-core/issues/5470, fixed in 2.2.1
 - name: installing pip modules in virtualenv
   pip:
