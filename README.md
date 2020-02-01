@@ -100,12 +100,13 @@ $ kitchen verify ansible-ubuntu-1404
 ```
 
 
-Known bugs
+## Known bugs
+
 * windows image is not free to redistribute
 Follow http://kitchen.ci/blog/test-kitchen-windows-test-flight-with-vagrant/
 * windows support in kitchen-ansible seems missing
 https://github.com/neillturner/kitchen-ansible/issues/131
-
+* Ongoing work for [Python3 support](https://github.com/Neo23x0/Loki/pull/123)
 
 ## Troubleshooting & Known issues
 
