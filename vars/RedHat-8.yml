@@ -9,6 +9,8 @@ loki_pkg:
     - gcc
     - yara-devel
 
+loki_python_bin: python3.6
+
 loki_pip_pkg:
     - psutil
     - pylzma
