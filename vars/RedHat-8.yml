@@ -8,6 +8,7 @@ loki_pkg:
     - python36-devel
     - gcc
     - yara-devel
+    - python3-yara
 
 loki_python_bin: python3.6
 
@@ -15,7 +16,7 @@ loki_pip_pkg:
     - psutil
     - pylzma
     - netaddr
-    - yara
+#    - yara
     - colorama
     - gitpython
     - pymisp

@@ -68,14 +68,20 @@
   register: pkg_result
   until: pkg_result is success
 
-- name: ensuring libyara.so available in virtualenv
+- name: Xenial | ensuring libyara.so available in virtualenv
   file:
     src: "{{ loki_env }}/lib/python2.7/site-packages/{{ loki_env }}/lib/libyara.so"
     dest: "{{ loki_env }}/lib/libyara.so"
     state: link
   when: >
-    ansible_distribution_release == 'xenial' or
-    (ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7')
+    ansible_distribution_release == 'xenial'
+- name: RedHat | ensuring libyara.so available in virtualenv
+  file:
+    src: "/usr/lib64/libyara.so.3"
+    dest: "{{ loki_env }}/lib/libyara.so"
+    state: link
+  when: >
+    (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 7)
 
 ## eventually ask a confirmation before starting long task
 #- pause: prompt="Please confirm before we start loki scan (long task)"
