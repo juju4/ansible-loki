@@ -1,0 +1,24 @@
+---
+
+loki_pkg:
+    - git-core
+    - python3-pip
+    - python3-virtualenv
+    - python36
+    - python36-devel
+    - gcc
+    - yara-devel
+
+loki_pip_pkg:
+    - psutil
+    - pylzma
+    - netaddr
+    - yara
+    - colorama
+    - gitpython
+    - pymisp
+    - argparse
+    - pycrypto
+    - rfc5424-logging-handler
+
+loki_redhat_pcre: /usr/lib64/libpcre.so.1
