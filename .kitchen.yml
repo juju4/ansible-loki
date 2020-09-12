@@ -21,21 +21,10 @@ provisioner:
   ansible_connection: ssh
 
 platforms:
+  - name: ubuntu-20.04
   - name: ubuntu-18.04
-  - name: ubuntu-16.04
-  - name: ubuntu-14.04
-#  - name: ubuntu-12.04
   - name: centos-8
   - name: centos-7
-## '/tmp/ir-bin/Loki/env/lib/libyara.so: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by /tmp/ir-bin/Loki/env/lib/libyara.so)'
-## with manually compiled libyara.so, got: 'AttributeError: /tmp/ir-bin/Loki/env/lib/libyara.so: undefined symbol: lookup_rule'
-#  - name: centos-6
-## FIXME! workaround Ansible 2.2+/cryptography: https://github.com/ansible/ansible/issues/276 no attribute 'HAVE_DECL_MPZ_POWM_SEC'
-#    provisioner:
-#      ansible_version: 2.1.2.0
-## FIXME! 'Installing Chef Omnibus to install busser to run tests' not supported = can disable
-##	' sl = self._semlock = _multiprocessing.SemLock(kind, value, maxvalue)\nOSError: [Errno 2] No such file or directory'
-#  - name: alpine-3.4
 
 suites:
   - name: default

@@ -116,6 +116,3 @@ depending on box, Loki can take a while. Role enforce 1h limit (valid only on un
 ## License
 
 BSD 2-clause
-
-
-

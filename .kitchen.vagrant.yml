@@ -18,26 +18,10 @@ provisioner:
 #  kerberos_conf_file:   <your krb5.conf file path> 
 
 platforms:
+  - name: ubuntu-20.04
   - name: ubuntu-18.04
-  - name: ubuntu-16.04
-  - name: ubuntu-14.04
-#  - name: ubuntu-12.04
-## FIXME! bash: ansible-playbook: command not found
-#  - name: debian-6.0.10
-#  - name: debian-7.0.
-  - name: centos-7.1
-#  - name: centos-6.6
-## FIXME! The box failed to unpackage properly. Please verify that the box file you're trying to add is not corrupted and try again. The output from attempting to unpackage (if any):
-#  - name: centos-6.7
-#  - name: centos-5.11
-# separate orchestrator is needed for windows
-# not using centos-7.0 as epel is ansible1.9
-  - name: centos-7.0
-    driver_plugin: vagrant
-    driver_config:
-      box: centos-7.0
-#  - name: ubuntu-14.04
-#    driver_plugin: vagrant
+  - name: centos-8
+  - name: centos-7
 #### http://kitchen.ci/blog/test-kitchen-windows-test-flight-with-vagrant/
 #### FIXME! https://github.com/neillturner/kitchen-ansible/issues/131
 #  - name: windows-2012r2
