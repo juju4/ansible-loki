@@ -1,5 +1,3 @@
-[![Build Status - Master](https://travis-ci.org/juju4/ansible-loki.svg?branch=master)](https://travis-ci.org/juju4/ansible-loki)
-[![Build Status - Devel](https://travis-ci.org/juju4/ansible-loki.svg?branch=devel)](https://travis-ci.org/juju4/ansible-loki/branches)
 
 [![Appveyor - Master](https://ci.appveyor.com/api/projects/status/27div2ln0s7kli7h?svg=true)](https://ci.appveyor.com/project/juju4/ansible-harden-windows)
 ![Appveyor - Devel](https://ci.appveyor.com/api/projects/status/27div2ln0s7kli7h/branch/devel?svg=true)
