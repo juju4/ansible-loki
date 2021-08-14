@@ -8,7 +8,6 @@ loki_pkg:
   - python36-devel
   - gcc
   - yara-devel
-  - python3-yara
 
 loki_python_bin: python3.6
 
@@ -23,5 +22,6 @@ loki_pip_pkg:
   - argparse
   - pycrypto
   - rfc5424-logging-handler
+  - yara-python
 
 loki_redhat_pcre: /usr/lib64/libpcre.so.1
