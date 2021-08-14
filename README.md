@@ -7,21 +7,17 @@
 # Loki ansible role
 
 A simple ansible role to execute loki, a Simple IOC and Incident Response Scanner.
-https://github.com/Neo23x0/Loki
-https://www.bsk-consulting.de/loki-free-ioc-scanner/
+* https://github.com/Neo23x0/Loki
+* https://www.bsk-consulting.de/loki-free-ioc-scanner/
 
 ## Requirements & Dependencies
 
 ### Ansible
-It was tested on the following versions:
- * 1.9
- * 2.0 (required for Windows)
- * 2.2
+It was tested on the following versions: 1.9 to 2.11
 
 ### Operating systems
 
-Tested with vagrant only on Ubuntu 14.04 for now but should work on 12.04 and similar debian based systems.
-Verified with kitchen against ubuntu14, centos7 and windows 2012
+Tested Ubuntu 18.04, 20.04 and Centos 7 and 8.
 
 ## Example Playbook
 
