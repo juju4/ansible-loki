@@ -1,0 +1,23 @@
+---
+
+loki_pkg:
+    - git
+    - python3
+    - python3-pip
+    - python3-virtualenv
+    - python3-dev
+    - libyara-dev
+
+loki_python_bin: python3
+
+loki_pip_pkg:
+    - argparse
+    - psutil
+    - pylzma
+    - netaddr
+    - yara-python
+    - colorama
+    - gitpython
+    - pymisp
+    - pycrypto
+    - rfc5424-logging-handler
