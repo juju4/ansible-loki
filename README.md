@@ -96,7 +96,12 @@ $ kitchen login ansible-ubuntu-1404
 $ kitchen converge ansible-ubuntu-1404
 $ kitchen verify ansible-ubuntu-1404
 ```
-
+or
+```
+$ pip install molecule docker
+$ molecule test
+$ MOLECULE_DISTRO=ubuntu:20.04 molecule test --destroy=never
+```
 
 ## Known bugs
 
