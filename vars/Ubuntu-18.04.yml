@@ -12,7 +12,7 @@ loki_pkg:
 loki_python_bin: python3
 
 loki_pip_pkg:
-    - argparse
+    # - argparse
     - psutil
     - pylzma
     - netaddr
