@@ -84,7 +84,7 @@
     (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 7)
 
 ## eventually ask a confirmation before starting long task
-#- pause: prompt="Please confirm before we start loki scan (long task)"
+# - pause: prompt="Please confirm before we start loki scan (long task)"
 
 - name: check target dir exists
   file: dest={{ dst_path }} state=directory mode=0700
@@ -123,8 +123,8 @@
   poll: 60
   register: lokiscan
   ignore_errors: true
-## https://github.com/ansible/ansible/issues/8644
-## http://stackoverflow.com/questions/492483/setting-the-correct-encoding-when-piping-stdout-in-python
+  ## https://github.com/ansible/ansible/issues/8644
+  ## http://stackoverflow.com/questions/492483/setting-the-correct-encoding-when-piping-stdout-in-python
   environment:
     PYTHONIOENCODING: 'utf-8'
 

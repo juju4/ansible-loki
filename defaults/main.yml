@@ -1,17 +1,17 @@
 ---
 
 ## note: colon in prefix creates issues (ex: LiME compile)
-#prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.iso8601 }}"
-#prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.epoch }}"
-#prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}_{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}"
+# prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.iso8601 }}"
+# prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.epoch }}"
+# prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}_{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}"
 ## Note: date on windows contains non-accepted filename character [\]
-#prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}"
+# prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.date }}"
 prefix: "{{ ansible_fqdn | default(ansible_hostname) }}"
 
 dst_mount: "/tmp/cases"
 ## destination
-#dst_path: "/tmp/{{ prefix }}-incidentreport"
-#dst_path: "/vagrant/{{ prefix }}-incidentreport"
+# dst_path: "/tmp/{{ prefix }}-incidentreport"
+# dst_path: "/vagrant/{{ prefix }}-incidentreport"
 
 ## do we want to install new packages? might be required if building kernel module for example
 ## allow ansible to download stuff which does not exist, eventually build it?
@@ -30,22 +30,22 @@ loki_scan_path: '/'
 bin_path_win: "c:\\temp\\ir-bin"
 dst_path_win: "c:\\temp"
 loki_scan_path_win: "c:\\temp"
-#loki_scan_path_win: "c:\\"
-#loki_scan_path_win: "c:\\windows"
+# loki_scan_path_win: "c:\\"
+# loki_scan_path_win: "c:\\windows"
 ## missing pre-compiled executable
-#loki_win_release_rurl: https://github.com/Neo23x0/Loki/archive/master.zip
+# loki_win_release_rurl: https://github.com/Neo23x0/Loki/archive/master.zip
 loki_win_release_rurl: https://github.com/Neo23x0/Loki/releases/download/v0.30.3/loki_0.30.3.zip
 
 loki: true
 loki_capture: true
 ## virtualenv path
 loki_env: "{{ bin_path }}/Loki/env"
-#loki_args: "--dontwait --intense --onlyrelevant --noindicator"
-#loki_args: "--dontwait --intense --noindicator"
+# loki_args: "--dontwait --intense --onlyrelevant --noindicator"
+# loki_args: "--dontwait --intense --noindicator"
 loki_args: "--dontwait --noindicator"
-#loki_args: "--dontwait --noindicator --debug"
+# loki_args: "--dontwait --noindicator --debug"
 loki_upgrade: false
 
 loki_virtualenv_command: ''
 ## on darwin, homebrew or macports path?
-#loki_virtualenv_command: '/opt/local/bin/virtualenv'
+# loki_virtualenv_command: '/opt/local/bin/virtualenv'

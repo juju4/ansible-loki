@@ -1,5 +1,5 @@
 ---
-#-
+# -
 #  playbook: default.yml
 #  inventory: hosts
 #  kitchen_path: '/tmp/kitchen'
@@ -9,7 +9,7 @@
 
 - hosts: ansible
   tasks:
-## https://fedoraproject.org/wiki/EPEL
+    ## https://fedoraproject.org/wiki/EPEL
     - name: RedHat7 | Installing epel rpm key
       rpm_key: key=https://getfedora.org/static/352C64E5.txt
                state=present

@@ -13,19 +13,19 @@
 ## BUG/FIXME! Normally, properties creates/recurse/rm are not necessary but v2rc1 asked them.
 - name: windows | loki unzip
   win_unzip:
-      src: "{{ bin_path_win }}\\{{ loki_win_release_rurl | basename }}"
-      dest: "{{ bin_path_win }}"
-      creates: false
-      recurse: false
-      rm: false
+    src: "{{ bin_path_win }}\\{{ loki_win_release_rurl | basename }}"
+    dest: "{{ bin_path_win }}"
+    creates: false
+    recurse: false
+    rm: false
   when: not loki.stat.exists and (do_download is defined and do_download)
 
 ## FIXME! winrm send_input failed
-#- name: signature-base git clone
-#  git:
-#    repo: https://github.com/Neo23x0/signature-base.git
-#    dest: "{{ bin_path_win }}/signature-base"
-#    version: "{{ loki_signaturebase_version | default('b3b0e19ee77592168ddcf46bac7f5bbae7b7a390') }}"
+# - name: signature-base git clone
+#   git:
+#     repo: https://github.com/Neo23x0/signature-base.git
+#     dest: "{{ bin_path_win }}/signature-base"
+#     version: "{{ loki_signaturebase_version | default('b3b0e19ee77592168ddcf46bac7f5bbae7b7a390') }}"
 
 - name: Check if loki output file exists
   win_stat: path="{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
@@ -42,8 +42,8 @@
 - name: windows | Do Loki check on {{ loki_scan_path_win }}
   win_shell: "{{ bin_path_win }}\\loki\\loki.exe {{ loki_args }} -p {{ loki_scan_path_win }}  > {{ loki_output }}"
   when: not lokiout.stat.exists
-## ERROR! async mode is not supported with the raw module
-#  async: 3600
-#  poll: 60
+  ## ERROR! async mode is not supported with the raw module
+  # async: 3600
+  # poll: 60
   register: lokiscan
   ignore_errors: true

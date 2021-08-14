@@ -5,23 +5,23 @@ galaxy_info:
   license: BSD
   min_ansible_version: 1.9
   platforms:
-  - name: EL
-    versions:
-     - 7
-     - 8
-  - name: Ubuntu
-    versions:
-    - trusty
-    - xenial
-    - bionic
-  - name: Debian
-    versions:
-    - all
-  - name: Windows
-    versions:
-    - all
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+        - bionic
+    - name: Debian
+      versions:
+        - all
+    - name: Windows
+      versions:
+        - all
   galaxy_tags:
-  - monitoring
-  - system
-  - security
+    - monitoring
+    - system
+    - security
 dependencies: []
