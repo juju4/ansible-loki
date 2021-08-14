@@ -1,6 +1,6 @@
 ---
 loki_signaturebase_version: '6fb4bd73b7eea485a717d19df25eb76587d02573'
-loki_version: 'v0.42.3'
+loki_version: '0.42.3'
 
 ## note: colon in prefix creates issues (ex: LiME compile)
 # prefix: "{{ ansible_fqdn }}-{{ ansible_date_time.iso8601 }}"
