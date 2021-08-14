@@ -14,4 +14,3 @@ describe command('/tmp/ir-bin/Loki/env/bin/pip freeze') do
 ## argparse can be through pip or package libpython2.7-stdlib/xenial
 #  its(:stdout) { should match /argparse/ }
 end
-

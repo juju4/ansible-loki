@@ -15,4 +15,3 @@ RSpec.configure do |config|
   set :backend, :ssh
   set :request_pty, true
 end
-
