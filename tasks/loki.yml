@@ -77,7 +77,7 @@
     ansible_distribution_release == 'xenial'
 - name: RedHat | ensuring libyara.so available in virtualenv
   file:
-    src: "/usr/lib64/libyara.so.3"
+    src: "/usr/lib64/libyara.so"
     dest: "{{ loki_env }}/lib/libyara.so"
     state: link
   when: >
