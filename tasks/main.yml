@@ -14,10 +14,10 @@
   when: ansible_os_family == "Darwin"
 
 # FIXME! as redhat epel has still ansible 1.9. need to disable those 2 lines when testing this platform
-- include: loki-windows.yml
+- import_tasks: loki-windows.yml
   when: ansible_os_family == 'Windows'
 
-- include: loki.yml
+- import_tasks: loki.yml
   when: ansible_os_family != 'Windows'
 
 - name: Recover files on orchestrator

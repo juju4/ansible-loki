@@ -1,6 +1,6 @@
 ---
 
-- include: windows-init.yml
+- import_tasks: windows-init.yml
 
 - name: Check if loki.exe exists
   win_stat: path={{ bin_path_win }}\loki-master\loki.exe
