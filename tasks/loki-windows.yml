@@ -35,7 +35,7 @@
 ## https://github.com/Neo23x0/Loki/archive/master.zip
 
 - name: Set fact loki_output
-  set_fact:
+  ansible.builtin.set_fact:
     loki_output: "{{ dst_path_win }}\\{{ prefix }}-Loki.txt"
 
 ## Note: prebuilt loki is 32bits. doesn't seem to stop after execution

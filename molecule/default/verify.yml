@@ -4,16 +4,16 @@
   hosts: loki
   tasks:
     - name: Validate loki is present
-      stat:
+      ansible.builtin.stat:
         path: /tmp/ir-bin/Loki/loki.py
       register: py
     - name: Validate loki
-      assert:
+      ansible.builtin.assert:
         that: py.stat.exists and py.stat.executable
     - name: Validate scan output is present
-      stat:
+      ansible.builtin.stat:
         path: /tmp/loki-out
       register: out
     - name: Validate scan output
-      assert:
+      ansible.builtin.assert:
         that: out.stat.exists
